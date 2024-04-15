@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Usuarios</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Lista de Usuarios</h1>
-    <ul id="user-list"></ul>
+
+<body class="bg-gray-100 p-8">
+    <h1 class="text-3xl font-bold mb-4">Lista de Usuarios</h1>
+    <ul id="user-list" class="grid gap-4"></ul>
 
     <script>
         async function getUsers() {
             const response = await fetch('http://localhost:8080/users');
             const users = await response.json();
             const userList = document.getElementById('user-list');
-            
+
             users.forEach(user => {
                 const listItem = document.createElement('li');
-                listItem.textContent = `Nombre de usuario: ${user.username}, Email: ${user.email}`;
+                listItem.className = 'bg-white rounded-lg p-4 shadow';
+                listItem.innerHTML = `
+                    <p class="text-lg font-semibold">Nombre de usuario: ${user.username}</p>
+                    <p class="text-gray-600">Email: ${user.email}</p>
+                `;
                 userList.appendChild(listItem);
             });
         }
@@ -25,4 +32,5 @@
         getUsers();
     </script>
 </body>
+
 </html>
