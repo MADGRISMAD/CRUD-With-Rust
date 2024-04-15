@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuarios</title>
+</head>
+<body>
+    <h1>Lista de Usuarios</h1>
+    <ul id="user-list"></ul>
+
+    <script>
+        async function getUsers() {
+            const response = await fetch('http://localhost:8080/users');
+            const users = await response.json();
+            const userList = document.getElementById('user-list');
+            
+            users.forEach(user => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Nombre de usuario: ${user.username}, Email: ${user.email}`;
+                userList.appendChild(listItem);
+            });
+        }
+
+        getUsers();
+    </script>
+</body>
+</html>
